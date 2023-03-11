@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #a0a0a06a;
+  overflow-x: hidden;
+  font-family: sans-serif;
+}

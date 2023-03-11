@@ -1,0 +1,73 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="cont-form">
+    <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">$</span>
+        <input
+          type="number"
+          pInputText
+          placeholder="Price"
+          required
+          min="1"
+          [(ngModel)]="price"
+          name="price"
+        />
+        <span class="p-inputgroup-addon">.00</span>
+      </div>
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+      <p-calendar
+        inputId="expireDate"
+        placeholder="Calendar"
+        [(ngModel)]="setDate"
+        name="expireDate"
+        [required]="true"
+      ></p-calendar>
+    </div>
+
+    <p-button
+      label="create Voucher"
+      type="submit"
+      icon="pi pi-check"
+      styleClass="p-button"
+    ></p-button>
+  </div>
+</form>
+
+<p-button
+  (click)="goBack()"
+  class="admin-btn"
+  label="Admin"
+  type="p-button"
+  styleClass="p-button"
+></p-button>
+
+<p-table [value]="voucherArr">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Voucher Code</th>
+      <th>Price</th>
+      <th>Used</th>
+      <th>Expire Date</th>
+      <th>Delete</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.voucherCode }}</td>
+      <td>{{ product.price }} $</td>
+      <td>{{ product.used === 1 ? "No" : product.used === 2 ? "Blocked" : "Yes" }}</td>
+      <td>{{ product.expireDate | date:"dd/MM/yyyy" }}</td>
+      <td>
+        <button
+          (click)="onDelete(product.voucherCode)"
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times-circle"
+          class="p-button-rounded p-button-text p-button-danger"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

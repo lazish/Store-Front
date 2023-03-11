@@ -1,0 +1,22 @@
+.header {
+  height: 80px;
+  width: 100vw;
+  background-color: #fff;
+  text-align: right;
+  padding-right: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+button {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: #0d66d0;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}

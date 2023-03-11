@@ -1,0 +1,32 @@
+.card {
+  background-color: white;
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+.admin-btn {
+  position: absolute;
+  left: 20px;
+  top: 25px;
+}
+
+
+.total {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 5%;
+  font-weight: normal;
+}
+
+.cont-form {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}

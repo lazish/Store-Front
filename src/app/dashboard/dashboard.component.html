@@ -1,0 +1,178 @@
+<p-toast></p-toast>
+<button class="logout-btn" (click)="logout()">გასვლა</button>
+
+<div class="container">
+  <div class="product-item-container">
+    <div class="prduct-item-label">
+      <div>სახელი</div>
+      <div>რაოდენობა</div>
+      <div>ფასი</div>
+    </div>
+    <div
+      *ngFor="let item of prodArr"
+      class="prduct-item"
+      (dblclick)="deleteProduct(item.productName, item.id)"
+    >
+      <div>{{ item.productName }}</div>
+      <div>{{ item.quantity }}</div>
+      <div>{{ item.price }} $</div>
+      <img
+        src="../../assets/images/Vectorblue.png"
+        alt="s"
+        (click)="addProduct(item)"
+      />
+      <button
+        class="update-btn"
+        *ngIf="ls.id === item.authId || ls.role === 'admin'"
+        (click)="producteUpdate(item)"
+      >
+        განახლება
+      </button>
+    </div>
+    <div *ngIf="ls.role === 'admin' || ls.role === 'seller'">
+      <form class="product-form" (ngSubmit)="onSubmit()">
+        <div class="product-add">
+          <input
+            type="text"
+            placeholder="პროდუქტის სახელი"
+            [(ngModel)]="productName"
+            name="productName"
+          />
+          <input
+            type="number"
+            min="1"
+            placeholder="რაოდენობა"
+            [(ngModel)]="quantity"
+            name="quantity"
+          />
+          <input
+            type="number"
+            min="1"
+            placeholder="ფასი"
+            [(ngModel)]="price"
+            name="price"
+          />
+        </div>
+        <div class="product-btn-cont">
+          <button class="product-btn" type="submit">დამატება</button>
+        </div>
+      </form>
+      <h2 class="warng-msg">{{ messageAdd }}</h2>
+    </div>
+  </div>
+  <div class="product-card">
+    <div class="title">
+      <img src="../../assets/images/Vectorgreen.png" alt="s" />
+      <h2>ჩემი კალათა</h2>
+    </div>
+    <div class="product-card-info-container">
+      <div *ngFor="let item of cartProd" class="product-card-info">
+        <div class="close" (click)="remove(item.productName)">X</div>
+        <div class="product-card-label">
+          <div>პროდუქტის დასახელება</div>
+          <div>რაოდენობა</div>
+          <div>ფასი</div>
+          <div>ჯამი</div>
+        </div>
+        <div class="product-card-item">
+          <div>{{ item.productName }}</div>
+          <div class="product-card-item-count">
+            <button
+              [disabled]="item.quantity == 1"
+              (click)="subtract(item.productName)"
+            >
+              -
+            </button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="plus(item.productName)">+</button>
+          </div>
+          <div>{{ item.price }} $</div>
+          <div>{{ item.price * item.quantity }}$</div>
+        </div>
+        <div class="voucher-btn" *ngIf="voucherBtn !== item.productName">
+          <p-button
+            (click)="onVoucher(item.productName)"
+            label="Voucher"
+            type="p-button"
+            styleClass="p-button-sm"
+          ></p-button>
+        </div>
+        <div class="voucher-form" *ngIf="voucherBtn === item.productName">
+          <form>
+            <input
+              type="text"
+              pInputText
+              placeholder="Voucher Code"
+              required
+              name="voucherCode"
+              minlength="16"
+              required
+              [(ngModel)]="voucherCode"
+            />
+            <p-button
+              type="submit"
+              icon="pi pi-check"
+              styleClass="p-button"
+              (click)="useVoucher(item.id)"
+            ></p-button>
+            <button
+              (click)="cancelVoucher()"
+              pButton
+              pRipple
+              icon="pi pi-times"
+              class="p-button-danger"
+            ></button>
+          </form>
+        </div>
+      </div>
+      <div class="save-cont" *ngIf="cartProd.length > 0">
+        <div class="btn-box">
+          <button class="product-btn" (click)="updateSave()">შენახვა</button>
+          <button class="product-btn" (click)="onBuy()">ყიდვა</button>
+        </div>
+        <h2 class="succ-msg">{{ updatemsg }}</h2>
+      </div>
+      <h2 class="warng-msg">{{ message }}</h2>
+    </div>
+  </div>
+</div>
+<div class="container-update" *ngIf="onOff">
+  <h2>პროდუქტის განახლება</h2>
+  <div class="update-inputs">
+    <form (ngSubmit)="onUpdate()">
+      <div>
+        <label>პროდუქტის სახელი</label>
+        <input
+          type="text"
+          [(ngModel)]="sendData.productName"
+          name="productName"
+        />
+      </div>
+      <div>
+        <label>რაოდენობა</label>
+        <input
+          type="number"
+          min="1"
+          [(ngModel)]="sendData.quantity"
+          name="quantity"
+        />
+      </div>
+      <div>
+        <label>ფასი</label>
+        <input
+          type="number"
+          min="1"
+          [(ngModel)]="sendData.price"
+          name="price"
+        />
+      </div>
+      <button class="update-btn-pr" type="submit">განახლება</button>
+      <h2 class="warng-msg">{{ updateProdmsg }}</h2>
+    </form>
+  </div>
+</div>
+
+
+<button type="button" (click)="show()" pButton icon="pi pi-shopping-cart" class="show-btn"></button>
+
+

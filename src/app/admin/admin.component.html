@@ -1,0 +1,211 @@
+<p-toast></p-toast>
+<button class="logout-btn" (click)="logout()">გასვლა</button>
+<div class="card">
+  <p-table
+    [value]="products2"
+    dataKey="id"
+    editMode="row"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th style="width: 8rem"></th>
+        <th style="width: 8rem">Delete</th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-product
+      let-editing="editing"
+      let-ri="rowIndex"
+    >
+      <tr [pEditableRow]="product">
+        <td style="width: 25%">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="product.productName"
+                required
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.productName }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="width: 25%">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="statuses"
+                appendTo="body"
+                [(ngModel)]="product.quantity"
+                [style]="{ width: '100%' }"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.quantity }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="width: 25%">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input
+                pInputText
+                type="number"
+                min="1"
+                required
+                [(ngModel)]="product.price"
+              />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ product.price | currency : "USD" }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align: center">
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            pInitEditableRow
+            icon="pi pi-pencil"
+            (click)="onRowEditInit(product)"
+            class="p-button-rounded p-button-text"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pSaveEditableRow
+            icon="pi pi-check"
+            (click)="onRowEditSave(product)"
+            class="p-button-rounded p-button-text p-button-success p-mr-2"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            (click)="onRowEditCancel(product, ri)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times-circle"
+            (click)="deleteProd(product)"
+            class="p-button-rounded p-button-text p-button-danger"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div class="user-drop">
+  <p-dropdown
+    [options]="usersArr"
+    [(ngModel)]="selectedUser"
+    placeholder="Select a User"
+    optionLabel="name"
+    [showClear]="true"
+    (onChange)="onChange()"
+  ></p-dropdown>
+</div>
+
+<form (ngSubmit)="addProduct()">
+  <div class="cont-form">
+    <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-cart-plus"></i></span>
+        <input
+          type="text"
+          required
+          pInputText
+          placeholder="Product name"
+          [(ngModel)]="addObj.productName"
+          name="productName"
+        />
+      </div>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">$</span>
+        <input
+          type="number"
+          pInputText
+          placeholder="Price"
+          required
+          min="1"
+          [(ngModel)]="addObj.price"
+          name="price"
+        />
+        <span class="p-inputgroup-addon">.00</span>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">Quantity</span>
+        <input
+          type="number"
+          required
+          min="1"
+          pInputText
+          placeholder="Website"
+          [(ngModel)]="addObj.quantity"
+          name="quantity"
+        />
+      </div>
+    </div>
+    <p-button
+      label="Add"
+      type="submit"
+      icon="pi pi-check"
+      styleClass="p-button"
+    ></p-button>
+  </div>
+</form>
+
+<p-button
+  (click)="goBack()"
+  class="admin-btn"
+  label="Voucher List"
+  type="p-button"
+  styleClass="p-button"
+></p-button>
+
+<p-button
+  (click)="soldList()"
+  class="admin-btn second"
+  label="Sold List"
+  type="p-button"
+  styleClass="p-button"
+></p-button>
+
+<p-button
+  (click)="report()"
+  class="admin-btn third"
+  label="Report"
+  type="p-button"
+  styleClass="p-button"
+></p-button>

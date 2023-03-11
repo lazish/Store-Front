@@ -1,0 +1,55 @@
+<div class="card">
+  <p-chart
+    type="bar"
+    [data]="stackedData"
+    [options]="stackedOptions"
+    width="30vw"
+    height="70vh"
+  ></p-chart>
+  <p-chart
+    type="polarArea"
+    [data]="data"
+    [options]="chartOptions"
+    width="30vw"
+  ></p-chart>
+</div>
+<p-button
+  (click)="goBack()"
+  class="admin-btn"
+  label="Admin"
+  type="p-button"
+  styleClass="p-button"
+></p-button>
+
+  <div class="cont-form">
+    <div class="p-field p-col-12 p-md-4">
+      <label style="margin-right: 10px;">Start Date:</label>
+      <p-calendar
+        inputId="startDate"
+        placeholder="Start Date"
+        name="startDate"
+        [(ngModel)]="startDate"
+        [required]="true"
+      ></p-calendar>
+    </div>
+    <div class="p-field p-col-12 p-md-4">
+      <label style="margin-right: 10px;">End Date:</label>
+      <p-calendar
+        inputId="endDate"
+        placeholder="End Date"
+        [(ngModel)]="endDate"
+        name="endDate"
+        [required]="true"
+      ></p-calendar>
+    </div>
+
+    <p-button
+      label="Search"
+      type="button"
+      icon="pi pi-check"
+      styleClass="p-button"
+      (click)="getData()"
+    ></p-button>
+  </div>
+
+<h1 class="total">Total: {{ total.toLocaleString() }} $</h1>

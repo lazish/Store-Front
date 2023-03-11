@@ -1,0 +1,45 @@
+
+<div class="container">
+  <div class="main-container">
+    <div class="auth-image">
+      <h2>ავტორიზაცია</h2>
+      <div class="auth-image-bg">
+        <img src="/assets/images/check.png" alt="check" />
+      </div>
+    </div>
+    <div class="auth-inputs">
+      <h2>შეიყვანეთ თქვენი მონაცემები</h2>
+      <div class="auth-form-container">
+        <form>
+          <div class="auth-input">
+            <label>თქვენი ელ-ფოსტა</label>
+            <input type="text" name="username" [(ngModel)]="username" />
+            <img
+              src="/assets/images/Vectoricon.png"
+              alt="s"
+              class="auth-icon"
+            />
+          </div>
+          <div class="auth-input">
+            <label>პაროლი</label>
+            <input type="password" name="password" [(ngModel)]="password"  />
+            <img
+              class="auth-icon"
+              src="/assets/images/Vectoricon2.png"
+              alt="s"
+            />
+          </div>
+          <div class="auth-btns">
+            <button type="submit" class="auth-btn-sub" (click)="onSubmit()">შესვლა</button>
+            <a class="auth-btn-forg" routerLink="/update"
+              >დაგავიწყდათ პაროლი ?
+            </a>
+          </div>
+          <a class="btn-cr" routerLink="/register">რეგისტრაცია</a>
+          <h2 class="err-msg">{{message}}</h2>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

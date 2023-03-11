@@ -1,0 +1,14 @@
+.cont-form {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.admin-btn {
+    position: absolute;
+    left: 20px;
+    top: 25px;
+}
